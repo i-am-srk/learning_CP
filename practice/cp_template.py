@@ -64,3 +64,14 @@ def selectionSort(nums: list[int]) -> list[int]:
 
 # arr = get_ints()
 # write_output(selectionSort(arr))
+
+def bubbleSort(nums: list[int]) -> list[int]:
+    n=len(nums)
+    for i in range(n-1,0,-1):
+        for j in range(0,i):
+            if nums[j]>nums[j+1]:
+                nums[j],nums[j+1]=nums[j+1],nums[j]
+    return nums
+
+# arr = get_ints()
+# write_output(bubbleSort(arr))
