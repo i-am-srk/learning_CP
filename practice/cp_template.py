@@ -50,3 +50,17 @@ def binpow(a: int, n: int) -> int:
 
 # a, n = get_ints()
 # write_output(binpow(a, n))
+
+def selectionSort(nums: list[int]) -> list[int]:
+        n=len(nums)
+        for i in range(n-1):
+            mini = i
+            for j in range(i+1, n):
+                if nums[j]<nums[mini]:
+                    mini=j
+            if nums[mini]<nums[i]:
+                nums[i],nums[mini]=nums[mini],nums[i]
+        return nums
+
+# arr = get_ints()
+# write_output(selectionSort(arr))
