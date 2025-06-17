@@ -67,11 +67,28 @@ def selectionSort(nums: list[int]) -> list[int]:
 
 def bubbleSort(nums: list[int]) -> list[int]:
     n=len(nums)
+    didSwap=0
     for i in range(n-1,0,-1):
-        for j in range(0,i):
+        for j in range(i):
             if nums[j]>nums[j+1]:
                 nums[j],nums[j+1]=nums[j+1],nums[j]
+                didSwap+=1
+        if didSwap==0:
+            break
     return nums
 
 # arr = get_ints()
 # write_output(bubbleSort(arr))
+
+def insertionSort(nums: list[int]) -> list[int]:
+    n=len(nums)
+    for i in range(n):
+        for j in range(i,0,-1):
+            if j>0 and nums[j-1]>nums[j]:
+                nums[j-1],nums[j]=nums[j],nums[j-1]
+            else:
+                break
+    return nums
+
+# arr = get_ints()
+# write_output(insertionSort(arr))
