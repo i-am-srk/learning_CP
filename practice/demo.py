@@ -8,3 +8,13 @@ def get_ints():
 
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
+
+def largestElement(nums: list[int]) -> int:
+    maxi=nums[0]
+    for i in range(len(nums)):
+        if nums[i]>maxi:
+            maxi=nums[i]
+    return maxi
+
+nums=get_ints()
+write_output(largestElement(nums))
