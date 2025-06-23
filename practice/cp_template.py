@@ -92,3 +92,101 @@ def insertionSort(nums: list[int]) -> list[int]:
 
 # arr = get_ints()
 # write_output(insertionSort(arr))
+
+def merge(nums,low,mid,high):
+    temp=[]
+    left,right=low,mid+1
+
+    while left<=mid and right<=high:
+        if nums[left]<=nums[right]:
+            temp.append(nums[left])
+            left+=1
+        else:
+            temp.append(nums[right])
+            right+=1
+    
+    while left<=mid:
+        temp.append(nums[left])
+        left+=1
+
+    while right<=high:
+        temp.append(nums[right])
+        right+=1
+
+    for i in range(low,high+1):
+        nums[i]=temp[i-low]
+
+def mergeSort(nums,low,high):
+    if low>=high:
+        return
+    mid=(low+high)//2
+    mergeSort(nums,low,mid)
+    mergeSort(nums,mid+1,high)
+    merge(nums,low,mid,high)
+    return nums
+
+    
+# arr = get_ints()
+# result = mergeSort(arr,0,len(arr)-1)
+# write_output(result)
+
+def recursive_bubble_sort(nums: list[int], n: int):
+    if n==1:
+        return
+    
+    didSwap=0
+
+    for i in range(n):
+        if nums[i]>nums[i+1]:
+            nums[i],nums[i+1]=nums[i+1],nums[i]
+            didSwap+=1
+    
+    if didSwap==0:
+        return
+    
+    return recursive_bubble_sort(nums,n-1)
+
+# nums=get_ints()
+# recursive_bubble_sort(nums,len(nums)-1)
+# write_output(nums)
+
+def recursive_insertion_sort(nums: list[int], n: int):
+    if n==len(nums):
+        return
+    
+    for i in range(n,0,-1):
+        if i>0 and nums[i-1]>nums[i]:
+            nums[i-1],nums[i]=nums[i],nums[i-1]
+    
+    return recursive_insertion_sort(nums,n+1)
+
+# nums=get_ints()
+# recursive_insertion_sort(nums,0)
+# write_output(nums)
+
+def partition(nums: list[int], low:int, high:int):
+    pivot=nums[low]
+    i,j=low,high
+    while i<j:
+        while nums[i]<=pivot and i<high:
+            i+=1
+
+        while nums[j]>pivot and j>low:
+            j-=1
+    
+        if i<j:
+            nums[i],nums[j]=nums[j],nums[i]
+
+    nums[low],nums[j]=nums[j],nums[low]
+    return j
+
+def quickSort(nums: list[int], low:int, high: int):
+    if low>=high:
+        return
+    partitionIndex=partition(nums,low,high)
+    quickSort(nums,low,partitionIndex-1)
+    quickSort(nums,partitionIndex+1,high)   
+
+# nums=get_ints()
+# quickSort(nums,0,len(nums)-1)
+# write_output(nums) 
