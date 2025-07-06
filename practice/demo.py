@@ -17,6 +17,7 @@ def rotateArray(nums: list[int], start: int, end: int):
     nums[start+k:end] = reversed(nums[start+k:end])
 
 def moveZeros(nums: list[int]):
+    
     n = len(nums)
     zeros_count = 0
     for i in range(n-1, -1, -1):
