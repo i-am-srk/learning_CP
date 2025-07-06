@@ -131,7 +131,7 @@ def mergeSort(nums,low,high):
 # write_output(result)
 
 def recursive_bubble_sort(nums: list[int], n: int):
-    if n==1:
+    if n==0:
         return
     
     didSwap=0
