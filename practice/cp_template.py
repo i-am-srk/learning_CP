@@ -185,7 +185,7 @@ def quickSort(nums: list[int], low:int, high: int):
         return
     partitionIndex=partition(nums,low,high)
     quickSort(nums,low,partitionIndex-1)
-    quickSort(nums,partitionIndex+1,high)   
+    quickSort(nums,partitionIndex+1,high) 
 
 # nums=get_ints()
 # quickSort(nums,0,len(nums)-1)
