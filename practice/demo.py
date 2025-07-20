@@ -20,7 +20,6 @@ def missingNumber(nums: list[int]) -> int:
     for i in range(len(visited)):
         if visited[i]:
             continue
-
         ans = i
         break
 
