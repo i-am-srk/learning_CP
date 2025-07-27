@@ -9,22 +9,17 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def missingNumber(nums: list[int]) -> int:
-    n=len(nums)
-    visited=[False]*(n+1)
-    
-    for num in nums:
-        visited[num]=True
-
-    ans=-1
-    for i in range(len(visited)):
-        if visited[i]:
-            continue
-        ans = i
-        break
-
-    return ans
+def maximumMedianSum(nums: list[int]) -> int:
+    n = len(nums)
+    nums.sort()
+    l, r = 0, n-1
+    median_sum=0
+    while(l<r and l<r-1):
+        median_sum += nums[r-1]
+        l+=1
+        r-=2
+    return median_sum
 
 nums=get_ints()
-result = missingNumber(nums)
+result = maximumMedianSum(nums)
 write_output(result)
