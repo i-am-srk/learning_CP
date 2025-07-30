@@ -9,17 +9,19 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def maximumMedianSum(nums: list[int]) -> int:
-    n = len(nums)
-    nums.sort()
-    l, r = 0, n-1
-    median_sum=0
-    while(l<r and l<r-1):
-        median_sum += nums[r-1]
-        l+=1
-        r-=2
-    return median_sum
+def findMaxConsecutiveOnes(nums: list[int]) -> int:
+    max_ones = 0
+    curr = 0
+    for num in nums:
+        if num==1:
+            curr+=1
+        else:
+            max_ones = max(curr, max_ones)
+            curr=0    
+    max_ones = max(curr, max_ones)
+
+    return max_ones
 
 nums=get_ints()
-result = maximumMedianSum(nums)
+result = findMaxConsecutiveOnes(nums)
 write_output(result)
