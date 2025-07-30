@@ -9,22 +9,19 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def missingNumber(nums: list[int]) -> int:
-    n=len(nums)
-    visited=[False]*(n+1)
-    
+def findMaxConsecutiveOnes(nums: list[int]) -> int:
+    max_ones = 0
+    curr = 0
     for num in nums:
-        visited[num]=True
+        if num==1:
+            curr+=1
+        else:
+            max_ones = max(curr, max_ones)
+            curr=0    
+    max_ones = max(curr, max_ones)
 
-    ans=-1
-    for i in range(len(visited)):
-        if visited[i]:
-            continue
-        ans = i
-        break
-
-    return ans
+    return max_ones
 
 nums=get_ints()
-result = missingNumber(nums)
+result = findMaxConsecutiveOnes(nums)
 write_output(result)
