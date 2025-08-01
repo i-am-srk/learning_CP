@@ -9,19 +9,12 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def findMaxConsecutiveOnes(nums: list[int]) -> int:
-    max_ones = 0
-    curr = 0
+def singleNumber(nums: list[int]) -> int:
+    res = 0
     for num in nums:
-        if num==1:
-            curr+=1
-        else:
-            max_ones = max(curr, max_ones)
-            curr=0    
-    max_ones = max(curr, max_ones)
-
-    return max_ones
+        res = res^num
+    return res
 
 nums=get_ints()
-result = findMaxConsecutiveOnes(nums)
+result = singleNumber(nums)
 write_output(result)
