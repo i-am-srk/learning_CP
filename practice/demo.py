@@ -9,11 +9,17 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
+# k=3, p=1
 def singleNumber(nums: list[int]) -> int:
-    res = 0
+    x1, x2, mask = 0, 0, 0
     for num in nums:
-        res = res^num
-    return res
+        x2^=x1&num
+        x1^=num
+        mask=~(x1&x2)
+        x2&=mask
+        x1&=mask
+    
+    return x1|x2
 
 nums=get_ints()
 result = singleNumber(nums)
