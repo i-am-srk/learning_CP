@@ -10,16 +10,21 @@ def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
 # k=3, p=1
-def singleNumber(nums: list[int]) -> int:
-    x1, x2, mask = 0, 0, 0
+def singleNumber(nums: list[int]) -> list[int]:
+    xor = 0
     for num in nums:
-        x2^=x1&num
-        x1^=num
-        mask=~(x1&x2)
-        x2&=mask
-        x1&=mask
+        xor^=num
+
+    set_bit = xor & -xor
     
-    return x1|x2
+    a, b = 0, 0
+    for num in nums:
+        if num & set_bit:
+            a^=num
+        else:
+            b^=num
+
+    return [a,b]
 
 nums=get_ints()
 result = singleNumber(nums)
