@@ -9,23 +9,21 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-# k=3, p=1
-def singleNumber(nums: list[int]) -> list[int]:
-    xor = 0
-    for num in nums:
-        xor^=num
+def maxSubarrayLen(nums: list[int], target: int) -> int:
+    sum_to_index = {0:-1}
+    max_length, cumulative_sum = 0, 0
+    for index, num in enumerate(nums):
+        cumulative_sum+=num
 
-    set_bit = xor & -xor
+        if (cumulative_sum-target) in sum_to_index:
+            max_length = max(max_length, index-sum_to_index[cumulative_sum-target])
+
+        if cumulative_sum not in sum_to_index:
+            sum_to_index[cumulative_sum] = index
     
-    a, b = 0, 0
-    for num in nums:
-        if num & set_bit:
-            a^=num
-        else:
-            b^=num
-
-    return [a,b]
+    return max_length
 
 nums=get_ints()
-result = singleNumber(nums)
+target = int(get_line())
+result = maxSubarrayLen(nums, target)
 write_output(result)
