@@ -9,20 +9,15 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def twoSum(nums: list[int], target: int) -> list[int]:
-    indices_to_numbers={}
-    ans=[]
-    for index, num in enumerate(nums):
-        compliment=target-num
-        if compliment in indices_to_numbers:
-            ans.append(indices_to_numbers[compliment])
-            ans.append(index)
-            break
-        indices_to_numbers[num]=index
+def majorityElement(nums: list[int]) -> int:
+    candidate, count = None, 0
+    for ele in nums:
+        if count==0:
+            candidate=ele
+        count=+1 if ele==candidate else -1
 
-    return ans
+    return candidate
 
 nums=get_ints()
-target = int(get_line())
-result = twoSum(nums, target)
+result = majorityElement(nums)
 write_output(result)
