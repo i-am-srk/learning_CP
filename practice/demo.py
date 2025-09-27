@@ -9,20 +9,15 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def twoSum(nums: list[int], target: int) -> list[int]:
-    indices_to_numbers={}
-    ans=[]
-    for index, num in enumerate(nums):
-        compliment=target-num
-        if compliment in indices_to_numbers:
-            ans.append(indices_to_numbers[compliment])
-            ans.append(index)
-            break
-        indices_to_numbers[num]=index
-
-    return ans
+def maxSubArray(nums: list[int]) -> int:
+    global_max = float('-inf')
+    current_max = 0
+    for num in nums:
+        current_max=max(num, current_max+num)
+        global_max=max(global_max, current_max)
+    
+    return global_max
 
 nums=get_ints()
-target = int(get_line())
-result = twoSum(nums, target)
+result = maxSubArray(nums)
 write_output(result)
