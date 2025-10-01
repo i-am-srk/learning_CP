@@ -9,15 +9,20 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def maxSubArray(nums: list[int]) -> int:
-    global_max = float('-inf')
-    current_max = 0
-    for num in nums:
-        current_max=max(num, current_max+num)
-        global_max=max(global_max, current_max)
+def maxProfit(prices: list[int]) -> int:
+    if not prices:
+        return 0
     
-    return global_max
+    min_price = prices[0]
+    max_profit = 0
+    for price in prices[1:]:
+        current_profit = price - min_price
+        max_profit = max(max_profit, current_profit)
+        min_price = min(min_price, price)
+
+    return max_profit
+
 
 nums=get_ints()
-result = maxSubArray(nums)
+result = maxProfit(nums)
 write_output(result)
