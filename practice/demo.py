@@ -9,16 +9,25 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def leaders(nums: list[int]) -> list[int]:
-    ans = [nums[-1]]
+def longestConsequetive(nums: list[int]):
+    if not nums:
+        return 0
+    
+    nums_set = set(nums)
+    longest_sequence = 0
 
-    for i in range(len(nums)-1, -1, -1):
-        if nums[i]>ans[-1]:
-            ans.append(nums[i])
+    for num in nums:
+        if (num-1) not in nums_set:
+            current_sequence=1
+            current_num = num
+            while (current_num+1) in nums_set:
+                current_sequence+=1
+                current_num+=1
+            longest_sequence = max(longest_sequence, current_sequence)
 
-    ans.reverse()
-    return ans
+    return longest_sequence
+
 
 nums=get_ints()
-result = leaders(nums)
+result = longestConsequetive(nums)
 write_output(result)
