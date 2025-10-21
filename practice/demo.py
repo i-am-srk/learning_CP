@@ -9,20 +9,24 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def twoSum(nums: list[int], target: int) -> list[int]:
-    indices_to_numbers={}
-    ans=[]
-    for index, num in enumerate(nums):
-        compliment=target-num
-        if compliment in indices_to_numbers:
-            ans.append(indices_to_numbers[compliment])
-            ans.append(index)
-            break
-        indices_to_numbers[num]=index
+def bSearch(nums: list[int], target: int) -> int:
+    n = len(nums)
+    low, high = 0, n-1
+    idx = -1
 
-    return ans
+    while low<=high:
+        mid = (low+high)//2
+        if nums[mid]==target:
+            idx = mid
+            break
+        elif nums[mid]>target:
+            high = mid-1
+        else:
+            low = mid+1
+
+    return idx
 
 nums=get_ints()
-target = int(get_line())
-result = twoSum(nums, target)
+k = int(get_line())
+result = bSearch(nums, k)
 write_output(result)
