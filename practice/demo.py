@@ -9,25 +9,22 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def longestConsequetive(nums: list[int]):
-    if not nums:
-        return 0
-    
-    nums_set = set(nums)
-    longest_sequence = 0
+def subarraySum(nums: list[int], k: int) -> int:
+    count = 0
+    current_sum = 0
+    prefix_sum = {}
+    prefix_sum[0]=1
 
     for num in nums:
-        if (num-1) not in nums_set:
-            current_sequence=1
-            current_num = num
-            while (current_num+1) in nums_set:
-                current_sequence+=1
-                current_num+=1
-            longest_sequence = max(longest_sequence, current_sequence)
+        current_sum+=num
+        if current_sum-k in prefix_sum:
+            count+=prefix_sum[current_sum-k]
+        prefix_sum[current_sum]=prefix_sum.get(current_sum, 0)+1
 
-    return longest_sequence
+    return count
 
 
 nums=get_ints()
-result = longestConsequetive(nums)
+k=int(get_line())
+result = subarraySum(nums, k)
 write_output(result)
