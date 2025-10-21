@@ -9,22 +9,24 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def subarraySum(nums: list[int], k: int) -> int:
-    count = 0
-    current_sum = 0
-    prefix_sum = {}
-    prefix_sum[0]=1
+def bSearch(nums: list[int], target: int) -> int:
+    n = len(nums)
+    low, high = 0, n-1
+    idx = -1
 
-    for num in nums:
-        current_sum+=num
-        if current_sum-k in prefix_sum:
-            count+=prefix_sum[current_sum-k]
-        prefix_sum[current_sum]=prefix_sum.get(current_sum, 0)+1
+    while low<=high:
+        mid = (low+high)//2
+        if nums[mid]==target:
+            idx = mid
+            break
+        elif nums[mid]>target:
+            high = mid-1
+        else:
+            low = mid+1
 
-    return count
-
+    return idx
 
 nums=get_ints()
-k=int(get_line())
-result = subarraySum(nums, k)
+k = int(get_line())
+result = bSearch(nums, k)
 write_output(result)
