@@ -9,23 +9,22 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def lowerBound(nums: list[int], x: int) -> int:
+def upperBound(nums: list[int], x: int) -> int:
     n = len(nums)
-    low, high = 0, n-1
+    low, high = 0, n
+    ans = n
 
-    while low<high:
-        mid=(low+high)//2
-        if nums[mid]-x < 0:
-            low=mid+1
-        else:
+    while low < high:
+        mid = low + (high-low)//2
+        if nums[mid] > x:
+            ans = mid
             high = mid
+        else:
+            low = mid+1
 
-    if nums[low] >= x:
-        return low
-    else:
-        return n
+    return ans
 
 nums=get_ints()
 k = int(get_line())
-result = lowerBound(nums, k)
+result = upperBound(nums, k)
 write_output(result)
