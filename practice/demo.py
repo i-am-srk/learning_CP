@@ -9,24 +9,23 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def bSearch(nums: list[int], target: int) -> int:
+def lowerBound(nums: list[int], x: int) -> int:
     n = len(nums)
     low, high = 0, n-1
-    idx = -1
 
-    while low<=high:
-        mid = (low+high)//2
-        if nums[mid]==target:
-            idx = mid
-            break
-        elif nums[mid]>target:
-            high = mid-1
+    while low<high:
+        mid=(low+high)//2
+        if nums[mid]-x < 0:
+            low=mid+1
         else:
-            low = mid+1
+            high = mid
 
-    return idx
+    if nums[low] >= x:
+        return low
+    else:
+        return n
 
 nums=get_ints()
 k = int(get_line())
-result = bSearch(nums, k)
+result = lowerBound(nums, k)
 write_output(result)
