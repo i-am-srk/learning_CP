@@ -9,23 +9,22 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def insertSearch(nums: list[int], target: int) -> int:
+def iterativeBS(nums: list[int], target: int) -> int:
     n=len(nums)
-    low,high=0,n
-
-    while low<high:
-        mid=low+(high-low)//2
-        if nums[mid]==target:
-            return mid
-        elif nums[mid]>target:
-            high-=1
-        else:
-            low+=1
-
-    return low
+    x=0
+    b=n//2
+    while b>=1:
+        while (x+b)<n and nums[x+b]<=target:
+            x+=b
+        b//=2
+    
+    if nums[x]==target:
+        return x
+    
+    return -1
 
 
 nums=get_ints()
-k = int(get_line())
-result = insertSearch(nums, k)
+target = int(get_line())
+result = iterativeBS(nums, target)
 write_output(result)
