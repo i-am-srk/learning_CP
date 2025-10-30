@@ -212,3 +212,23 @@ def bSearch(nums: list[int], target: int) -> int:
 # k=int(get_line())
 # index=bSearch(nums,k)
 # write_output(index)
+
+def iterativeBS(nums: list[int], target: int) -> int:
+    n=len(nums)
+    x=0
+    b=n//2
+    while b>=1:
+        while (x+b)<n and nums[x+b]<=target:
+            x+=b
+        b//=2
+    
+    if nums[x]==target:
+        return x
+    
+    return -1
+
+
+# nums=get_ints()
+# target = int(get_line())
+# result = iterativeBS(nums, target)
+# write_output(result)
