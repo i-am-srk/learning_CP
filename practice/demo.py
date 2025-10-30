@@ -9,22 +9,23 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def upperBound(nums: list[int], x: int) -> int:
-    n = len(nums)
-    low, high = 0, n
-    ans = n
+def insertSearch(nums: list[int], target: int) -> int:
+    n=len(nums)
+    low,high=0,n
 
-    while low < high:
-        mid = low + (high-low)//2
-        if nums[mid] > x:
-            ans = mid
-            high = mid
+    while low<high:
+        mid=low+(high-low)//2
+        if nums[mid]==target:
+            return mid
+        elif nums[mid]>target:
+            high-=1
         else:
-            low = mid+1
+            low+=1
 
-    return ans
+    return low
+
 
 nums=get_ints()
 k = int(get_line())
-result = upperBound(nums, k)
+result = insertSearch(nums, k)
 write_output(result)
