@@ -190,3 +190,25 @@ def quickSort(nums: list[int], low:int, high: int):
 # nums=get_ints()
 # quickSort(nums,0,len(nums)-1)
 # write_output(nums) 
+
+def bSearch(nums: list[int], target: int) -> int:
+    n=len(nums)
+    low,high=0,n-1
+    idx=-1
+
+    while low<=high:
+        mid=low+(high-low)//2
+        if nums[mid]==target:
+            idx=mid
+            break
+        elif nums[mid]>target:
+            high=mid-1
+        else:
+            low=mid+1
+
+    return idx
+
+# nums=get_ints()
+# k=int(get_line())
+# index=bSearch(nums,k)
+# write_output(index)
