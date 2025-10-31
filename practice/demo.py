@@ -10,19 +10,21 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def searchRange(nums: list[int], target: int) -> list[int]:
-    if len(nums)==0 or nums[-1]<target:
-        return [-1,-1]
+def countOccurences(nums: list[int], target: int) -> int:
+    n=len(nums)
+    if n==0:
+        return 0
     
-    l = bisect.bisect_left(nums, target)
-    r = bisect.bisect_right(nums, target)-1
+    l=bisect.bisect_left(nums, target)
+    r=bisect.bisect(nums, target)
 
-    if nums[l]==target and nums[r]==target:
-        return [l,r]
+    if l>=n:
+        return 0
+    
+    return r-l
 
-    return [-1,-1]
 
 nums=get_ints()
 target = int(get_line())
-result = searchRange(nums, target)
+result = countOccurences(nums, target)
 write_output(result)
