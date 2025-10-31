@@ -1,4 +1,5 @@
 import sys
+import bisect
 
 def get_line():
     return sys.stdin.readline().strip()
@@ -9,22 +10,19 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def iterativeBS(nums: list[int], target: int) -> int:
-    n=len(nums)
-    x=0
-    b=n//2
-    while b>=1:
-        while (x+b)<n and nums[x+b]<=target:
-            x+=b
-        b//=2
+def searchRange(nums: list[int], target: int) -> list[int]:
+    if len(nums)==0 or nums[-1]<target:
+        return [-1,-1]
     
-    if nums[x]==target:
-        return x
-    
-    return -1
+    l = bisect.bisect_left(nums, target)
+    r = bisect.bisect_right(nums, target)-1
 
+    if nums[l]==target and nums[r]==target:
+        return [l,r]
+
+    return [-1,-1]
 
 nums=get_ints()
 target = int(get_line())
-result = iterativeBS(nums, target)
+result = searchRange(nums, target)
 write_output(result)
