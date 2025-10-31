@@ -10,21 +10,28 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def countOccurences(nums: list[int], target: int) -> int:
+def singleNonDuplicate(nums: list[int]) -> int:
     n=len(nums)
-    if n==0:
-        return 0
+    if n==1:
+        return nums[0]
     
-    l=bisect.bisect_left(nums, target)
-    r=bisect.bisect(nums, target)
+    low, high=0,n-1
+    while low < high:
+        mid = low+(high-low)//2
 
-    if l>=n:
-        return 0
+        if mid%2==1:
+            mid-=1
+        
+        if nums[mid]==nums[mid+1]:
+            low=mid+2
+        else:
+            high=mid
     
-    return r-l
+    return nums[low]
+
 
 
 nums=get_ints()
-target = int(get_line())
-result = countOccurences(nums, target)
+# target = int(get_line())
+result = singleNonDuplicate(nums)
 write_output(result)
