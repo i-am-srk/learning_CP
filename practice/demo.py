@@ -10,26 +10,22 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def findRotation(nums: list[int]) -> int:
+def getFloorAndCeil(nums: list[int], target: int) -> int:
     n=len(nums)
-    if n==0:
-        return 0
+    floor, ceil = -1, -1
 
-    low, high = 0, n-1
-    if nums[low] <= nums[high]:
-        return low
-    
-    while low<high:
-        mid = low+(high-low)//2
-        if nums[mid]>nums[high]:
-            low=mid+1
-        else:
-            high=mid
+    ceil_index = bisect.bisect_left(nums, target)
+    if ceil_index<n:
+        ceil = nums[ceil_index]
 
-    return low
+    floor_index = bisect.bisect_right(nums, target)-1
+    if floor_index>=0:
+        floor = nums[floor_index]
+
+    return (floor, ceil)
 
 
 nums=get_ints()
-# target = int(get_line())
-result = findRotation(nums)
+target = int(get_line())
+result = getFloorAndCeil(nums, target)
 write_output(result)
