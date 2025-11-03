@@ -10,22 +10,18 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def getFloorAndCeil(nums: list[int], target: int) -> int:
+def hasDuplicate(nums: list[int]) -> bool:
     n=len(nums)
-    floor, ceil = -1, -1
+    freq_map = {}
+    for num in nums:
+        if num in freq_map:
+            return True
+        freq_map[num]=1
 
-    ceil_index = bisect.bisect_left(nums, target)
-    if ceil_index<n:
-        ceil = nums[ceil_index]
-
-    floor_index = bisect.bisect_right(nums, target)-1
-    if floor_index>=0:
-        floor = nums[floor_index]
-
-    return (floor, ceil)
+    return False
 
 
 nums=get_ints()
-target = int(get_line())
-result = getFloorAndCeil(nums, target)
+# target = int(get_line())
+result = hasDuplicate(nums)
 write_output(result)
