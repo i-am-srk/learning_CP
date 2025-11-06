@@ -10,35 +10,32 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def isAnagram(s: str, t:str) -> bool:
-    if len(s)!=len(t):
-        return False
-    
-    s_freq = {}
-    t_freq = {}
+def search(nums: list[int], target: int) -> int:
+    n = len(nums)
+    low, high = 0, n-1
 
-    for c in s:
-        if c in s_freq:
-            s_freq[c]+=1
-        else:
-            s_freq[c]=1
+    while low<=high:
+        mid = low+(high-low)//2
 
-    for c in t:
-        if c in t_freq:
-            t_freq[c]+=1
-        else:
-            t_freq[c]=1
-
-    for key, value in s_freq.items():
-        if key not in t_freq or t_freq[key]!=value:
-            return False
+        if nums[mid]==target:
+            return mid
         
-    return True
+        if nums[mid]>=nums[low]:
+            if nums[low]<=target and target<nums[mid]:
+                high = mid-1
+            else:
+                low = mid+1
+        else:
+            if nums[mid]<target and target<=nums[high]:
+                low = mid+1
+            else:
+                high = mid-1
+    
+    return -1
 
-
-str_1 = get_line()
-str_2 = get_line()
-# nums=get_ints()
-# k=int(get_line())
-result = isAnagram(str_1, str_2)
+# str_1 = get_line()
+# str_2 = get_line()
+nums=get_ints()
+k=int(get_line())
+result = search(nums, k)
 write_output(result)
