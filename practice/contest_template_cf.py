@@ -9,25 +9,31 @@ def get_list_input():
 def output(s):
     return sys.stdout.write(str(s)+"\n")
 
-def check_square(nums: list[int]) -> bool:
-    side_length = nums[0]
-    is_valid = True
-    for num in nums:
-        if num != side_length:
-            is_valid = False
-            break
+def solve(n, k):
+    solved = 0
+    total_time = 240
+    available_time = total_time-k
+    for i in range(1, n+1):
+        available_time -= 5*i
+        if available_time >= 0:
+            solved+=1
 
-    return is_valid
+    return solved
 
-def solve():
-    t = int(get_line())
+def cf():
+    n, k = get_list_input()
+    answer = solve(n, k)
+    output(answer)
 
-    while t:
-        sticks = get_list_input()
-        answer = "YES" if check_square(sticks) else "NO"
-        output(answer)
 
-        t-=1
+    # t = int(get_line())
+
+    # while t:
+    #     sticks = get_list_input()
+    #     answer = "YES" if check_square(sticks) else "NO"
+    #     output(answer)
+
+    #     t-=1
 
 if __name__ == "__main__":
-    solve()
+    cf()
