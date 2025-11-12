@@ -10,7 +10,7 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def search(nums: list[int], target: int) -> int:
+def search_II(nums: list[int], target: int) -> bool:
     n = len(nums)
     low, high = 0, n-1
 
@@ -18,8 +18,13 @@ def search(nums: list[int], target: int) -> int:
         mid = low+(high-low)//2
 
         if nums[mid]==target:
-            return mid
+            return True
         
+        if nums[mid]==nums[low] and nums[mid]==nums[high]:
+            low+=1
+            high-=1
+            continue 
+
         if nums[mid]>=nums[low]:
             if nums[low]<=target and target<nums[mid]:
                 high = mid-1
@@ -31,11 +36,11 @@ def search(nums: list[int], target: int) -> int:
             else:
                 high = mid-1
     
-    return -1
+    return False
 
 # str_1 = get_line()
 # str_2 = get_line()
 nums=get_ints()
 k=int(get_line())
-result = search(nums, k)
+result = search_II(nums, k)
 write_output(result)
