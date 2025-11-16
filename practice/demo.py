@@ -10,37 +10,27 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def search_II(nums: list[int], target: int) -> bool:
+def findMin(nums: list[int]) -> int:
     n = len(nums)
     low, high = 0, n-1
 
-    while low<=high:
-        mid = low+(high-low)//2
-
-        if nums[mid]==target:
-            return True
-        
-        if nums[mid]==nums[low] and nums[mid]==nums[high]:
-            low+=1
-            high-=1
-            continue 
-
-        if nums[mid]>=nums[low]:
-            if nums[low]<=target and target<nums[mid]:
-                high = mid-1
-            else:
-                low = mid+1
-        else:
-            if nums[mid]<target and target<=nums[high]:
-                low = mid+1
-            else:
-                high = mid-1
+    if nums[low]<=nums[high]:
+        return nums[low]
     
-    return False
+    while low<high:
+        mid =low+(high-low)//2
+
+        if nums[mid]>nums[high]:
+            low=mid+1
+        else:
+            high=mid
+
+    return nums[low]
+
 
 # str_1 = get_line()
 # str_2 = get_line()
 nums=get_ints()
-k=int(get_line())
-result = search_II(nums, k)
+# k=int(get_line())
+result = findMin(nums)
 write_output(result)
