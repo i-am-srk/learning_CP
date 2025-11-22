@@ -10,27 +10,29 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def findMin(nums: list[int]) -> int:
-    n = len(nums)
-    low, high = 0, n-1
-
-    if nums[low]<=nums[high]:
-        return nums[low]
+def floorSqrt(num: int) -> int:
+    if num<2:
+        return num
     
-    while low<high:
-        mid =low+(high-low)//2
-
-        if nums[mid]>nums[high]:
-            low=mid+1
+    l, r = 1, num//2
+    ans=0
+    while l<=r:
+        mid = l+(r-l)//2
+        square=mid*mid
+        if square == num:
+            return mid
+        elif square<num:
+            ans=mid
+            l=mid+1
         else:
-            high=mid
+            r=mid-1
 
-    return nums[low]
+    return ans
 
 
 # str_1 = get_line()
 # str_2 = get_line()
-nums=get_ints()
-# k=int(get_line())
-result = findMin(nums)
+# nums=get_ints()
+k=int(get_line())
+result = floorSqrt(k)
 write_output(result)
