@@ -10,29 +10,23 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def floorSqrt(num: int) -> int:
-    if num<2:
-        return num
+def distinct_nos(nums: list) -> int:
+    n=len(nums)
+    if n<2:
+        return 1
     
-    l, r = 1, num//2
-    ans=0
-    while l<=r:
-        mid = l+(r-l)//2
-        square=mid*mid
-        if square == num:
-            return mid
-        elif square<num:
-            ans=mid
-            l=mid+1
-        else:
-            r=mid-1
+    nums.sort() # n(logn)
+    i,distincts=0,0
+    while i<n: # k(logn): k is distinct numbers
+        distincts+=1
+        i = bisect.bisect_right(nums,nums[i],lo=i)
 
-    return ans
+    return distincts
 
 
 # str_1 = get_line()
 # str_2 = get_line()
-# nums=get_ints()
 k=int(get_line())
-result = floorSqrt(k)
+nums=get_ints()
+result = distinct_nos(nums)
 write_output(result)
