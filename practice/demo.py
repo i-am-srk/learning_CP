@@ -10,23 +10,32 @@ def get_ints():
 def write_output(s):
     sys.stdout.write(str(s)+'\n')
 
-def distinct_nos(nums: list) -> int:
-    n=len(nums)
-    if n<2:
-        return 1
-    
-    nums.sort() # n(logn)
-    i,distincts=0,0
-    while i<n: # k(logn): k is distinct numbers
-        distincts+=1
-        i = bisect.bisect_right(nums,nums[i],lo=i)
+def count_apartments(applicants: list, apartments: list, k: int) -> int:
+    applicants.sort()
+    apartments.sort()
 
-    return distincts
+    i,j,matches=0,0,0
+    while i<len(applicants) and j<len(apartments):
+        if abs(apartments[j]-applicants[i])<=k:
+            matches+=1
+            i+=1
+            j+=1
+        elif apartments[j]<applicants[i]-k:
+            j+=1
+        else:
+            i+=1
+
+    return matches
+
+
 
 
 # str_1 = get_line()
 # str_2 = get_line()
-k=int(get_line())
-nums=get_ints()
-result = distinct_nos(nums)
+# k=int(get_line())
+# nums=get_ints()
+n, m, k = get_ints()
+applicants = get_ints()
+apartments = get_ints()
+result = count_apartments(applicants, apartments, k)
 write_output(result)
