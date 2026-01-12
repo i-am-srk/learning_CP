@@ -9,45 +9,54 @@ def get_list_input():
 def output(s):
     return sys.stdout.write(str(s)+"\n")
 
-def solve(n, p):
-    if n<2:
-        return 0
-    
-    d = [abs(p[i] - p[i+1]) for i in range(n-1)]
-    m = n - 1
-    
-    left = [-1] * m
-    right = [m] * m
-    stack = []
-    
-    for i in range(m):
-        while stack and d[stack[-1]] >= d[i]:
-            stack.pop()
-        if stack:
-            left[i] = stack[-1]
-        stack.append(i)
+TABLE = [[0] * 8 for _ in range(8)]
+for m1 in range(8):
+    for m2 in range(8):
+        res = 0
+        for i in range(3):
+            if (m1 >> i) & 1:
+                for j in range(3):
+                    if (m2 >> j) & 1:
+                        res |= (1 << ((i + j) % 3))
+        TABLE[m1][m2] = res
+
+def solve(n, adj):
+    parent = [0] * (n + 1)
+    order = []
+    has_child = [False] * (n + 1)
+    visited = [False] * (n + 1)
+
+    stack = [1]
+    visited[1] = True
+    while stack:
+        u = stack.pop()
+        order.append(u)
+        for v in adj[u]:
+            if not visited[v]:
+                visited[v] = True
+                parent[v] = u
+                has_child[u] = True
+                stack.append(v)
+
+    curr_sum = [1] * (n + 1)
+
+    ans = ""
+    for u in reversed(order):
+        if not has_child[u]:
+            dp_u = 2
+        else:
+            dp_u = 2 | curr_sum[u]
         
-    stack = []
-    for i in range(m-1, -1, -1):
-        while stack and d[stack[-1]] > d[i]:
-            stack.pop()
-        if stack:
-            right[i] = stack[-1]
-        stack.append(i)
+        if u == 1:
+            if dp_u & 1:
+                ans = "YES"
+            else:
+                ans = "NO"
+        else:
+            p = parent[u]
+            curr_sum[p] = TABLE[curr_sum[p]][dp_u]
 
-    freq = [0] * (n + 1)
-    for i in range(m):
-        count = (i - left[i]) * (right[i] - i)
-        freq[d[i]] += count
-
-    ans = [0] * (n + 1)
-    current_sum = 0
-    for k in range(n - 1, 0, -1):
-        current_sum += freq[k]
-        ans[k] = current_sum
-
-    return " ".join(map(str, ans[1:n]))
-
+    return ans
 
 def cf():
     # n, k = get_list_input()
@@ -59,8 +68,14 @@ def cf():
 
     while t:
         n = int(get_line())
-        p = get_list_input()
-        answer = solve(n, p)
+
+        adj = [[] for _ in range(n + 1)]
+        for _ in range(n - 1):
+            u, v = get_list_input()
+            adj[u].append(v)
+            adj[v].append(u)
+
+        answer = solve(n, adj)
         output(answer)
 
         t-=1
