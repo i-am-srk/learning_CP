@@ -9,24 +9,27 @@ def get_list_input():
 def output(s):
     return sys.stdout.write(str(s)+"\n")
 
-def solve(n, k):
-    if k>n:
-        return -1
-    
-    found=False
-    for d in range(32):
-        low=n//(1<<d)
-        high=(n+(1<<d)-1)//(1<<d)
+MAX_D=32
+C= [[0]*MAX_D for _ in range (MAX_D)]
+for i in range (MAX_D):
+    C[i][0]=1
+    for j in range (1,i+1):
+        C[i][j]=C[i-1][j-1]+C[i-1][j]
 
-        if low==k or high==k:
-            found=True
-            return d
-        
-        if high<k:
-            break
-    
-    if not found:
-        return -1
+def solve(n, k):
+    d=n.bit_length()-1
+    ans=0
+
+    if d+1>k:
+        ans+=1
+
+    for p in range(d):
+        target_c= k-p
+
+        for c in range(max(0, target_c), p+1):
+            ans+=C[p][c]
+
+    return ans
 
 def cf():
     # n, k = get_list_input()
