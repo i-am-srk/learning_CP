@@ -9,13 +9,19 @@ def get_list_input():
 def output(s):
     return sys.stdout.write(str(s)+"\n")
 
-def solve(n):
-    if n==2:
-        return 2
-    elif n==3:
-        return 3
+def solve(s, k, m):
+    num_flips = m//k
+    time_left = m%k
+
+    if num_flips==0:
+        sand_left=s
+    elif num_flips%2==1:
+        sand_left=min(s,k)
     else:
-        return n%2
+        sand_left=s
+
+    rem_sand = max(0, sand_left - time_left)
+    return rem_sand
 
 def cf():
     # n, k = get_list_input()
@@ -26,8 +32,8 @@ def cf():
     t = int(get_line())
 
     while t:
-        people = int(get_line())
-        answer = solve(people)
+        s, k, m = get_list_input()
+        answer = solve(s, k, m)
         output(answer)
 
         t-=1
